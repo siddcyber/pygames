@@ -1,2 +1,2 @@
 # pygames
- First game with pygames
+ First game with pygame
