@@ -31,7 +31,7 @@ def player(x, y):
 enemyImg = pygame.image.load("enemy.png")
 enemyX = random.randint(0, int(xAxis - 64))
 enemyY = random.randint(0, int(yAxis * 0.65))
-enemyXChange = 0.3
+enemyXChange = 4
 enemyYChange = 40
 
 
@@ -42,19 +42,20 @@ def enemy(x, y):
 # Game Loop
 while running:
     screen.fill('black')  # the screen fil is set here to update the screen black after every event
+    screen.blit(pygame.image.load("background.png"), (0, 0)) # adding bg image (slows loop)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
         # to check if key was pressed
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerXChange = -1
+                playerXChange = -5
             if event.key == pygame.K_RIGHT:
-                playerXChange = 1
+                playerXChange = 5
             if event.key == pygame.K_UP:
-                playerYChange = -1
+                playerYChange = -5
             if event.key == pygame.K_DOWN:
-                playerYChange = 1
+                playerYChange = 5
 
         # to check if key was released
         if event.type == pygame.KEYUP:
@@ -75,12 +76,12 @@ while running:
     elif playerY >= 536:
         playerY = 536
     #  enemy settings
-    enemyX+=enemyXChange
+    enemyX += enemyXChange
     if enemyX <= 0:
-        enemyXChange = 0.3
+        enemyXChange = 4
         enemyY += enemyYChange
     elif enemyX >= 736:  # keep in mind the pixels of the image
-        enemyXChange = -0.3
+        enemyXChange = -4
         enemyY += enemyYChange
 
     player(playerX, playerY)
