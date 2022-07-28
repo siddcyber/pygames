@@ -2,26 +2,42 @@
 #  space invaders ( from YouTube )
 
 import pygame
+import random
 
 # initialize pygame
 pygame.init()
 #  create screen display
-length = 800
-width = 600
-screen = pygame.display.set_mode((length, width))
+xAxis = 800
+yAxis = 600
+screen = pygame.display.set_mode((xAxis, yAxis))
 running = True  # value assigned to check if window running
 #  Title and focus
 pygame.display.set_caption('Space Invaders')
 pygame.display.set_icon(pygame.image.load('ufo.png'))
+
+#  player section
 playerImg = pygame.image.load("player.png")
-playerX = 370
-playerY = 480
+playerX = xAxis * 0.46
+playerY = yAxis * 0.8
 playerXChange = 0
 playerYChange = 0
 
 
 def player(x, y):
     screen.blit(playerImg, (x, y))
+
+
+# Enemy section
+enemyImg = pygame.image.load("enemy.png")
+enemyX = random.randint(0, int(xAxis - 64))
+enemyY = random.randint(0, int(yAxis * 0.65))
+enemyXChange = 0.3
+enemyYChange = 40
+
+
+def enemy(x, y):
+    screen.blit(enemyImg, (x, y))
+
 
 # Game Loop
 while running:
@@ -52,12 +68,21 @@ while running:
     # setting boundary by if function to delete and reset when near some value
     if playerX <= 0:
         playerX = 0
-    elif playerX>= 736:  # keep in mind the pixels of te image
+    elif playerX >= 736:  # keep in mind the pixels of te image
         playerX = 736
-    if playerY <=0:
+    if playerY <= 0:
         playerY = 0
-    elif playerY>=536:
-        playerY=536
-    player(playerX, playerY)
-    pygame.display.update()  # updates the window
+    elif playerY >= 536:
+        playerY = 536
+    #  enemy settings
+    enemyX+=enemyXChange
+    if enemyX <= 0:
+        enemyXChange = 0.3
+        enemyY += enemyYChange
+    elif enemyX >= 736:  # keep in mind the pixels of the image
+        enemyXChange = -0.3
+        enemyY += enemyYChange
 
+    player(playerX, playerY)
+    enemy(enemyX, enemyY)
+    pygame.display.update()  # updates the window
