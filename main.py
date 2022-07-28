@@ -38,6 +38,16 @@ enemyYChange = 40
 def enemy(x, y):
     screen.blit(enemyImg, (x, y))
 
+# Bullet section
+bulletImg = pygame.image.load("bullet.png")
+bulletX = random.randint(0, int(xAxis - 64))
+bulletY = random.randint(0, int(yAxis * 0.65))
+bulletXChange = 4
+bulletYChange = 40
+
+
+def bullet(x, y):
+    screen.blit(bulletImg, (x, y))
 
 # Game Loop
 while running:
