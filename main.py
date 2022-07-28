@@ -33,11 +33,19 @@ while running:
                 playerXChange = -0.1
             if event.key == pygame.K_RIGHT:
                 playerXChange = 0.1
+            if event.key == pygame.K_UP:
+                playerYChange = -0.1
+            if event.key == pygame.K_DOWN:
+                playerYChange = 0.1
+
         # to check if key was released
         if event.type == pygame.KEYUP:
-            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT or event.key == pygame.K_UP:
+            if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                 playerXChange = 0
+            if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
+                playerYChange = 0
     playerX += playerXChange
+    playerY += playerYChange
     player(playerX, playerY)
     pygame.display.update()  # updates the window
 #
