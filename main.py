@@ -6,7 +6,9 @@ import pygame
 # initialize pygame
 pygame.init()
 #  create screen display
-screen = pygame.display.set_mode((800, 600))
+length = 800
+width = 600
+screen = pygame.display.set_mode((length, width))
 running = True  # value assigned to check if window running
 #  Title and focus
 pygame.display.set_caption('Space Invaders')
@@ -30,13 +32,13 @@ while running:
         # to check if key was pressed
         if event.type == pygame.KEYDOWN:
             if event.key == pygame.K_LEFT:
-                playerXChange = -0.1
+                playerXChange = -1
             if event.key == pygame.K_RIGHT:
-                playerXChange = 0.1
+                playerXChange = 1
             if event.key == pygame.K_UP:
-                playerYChange = -0.1
+                playerYChange = -1
             if event.key == pygame.K_DOWN:
-                playerYChange = 0.1
+                playerYChange = 1
 
         # to check if key was released
         if event.type == pygame.KEYUP:
@@ -44,8 +46,18 @@ while running:
                 playerXChange = 0
             if event.key == pygame.K_UP or event.key == pygame.K_DOWN:
                 playerYChange = 0
+    # adding changes to player x and y to show in the defined function as a new value
     playerX += playerXChange
     playerY += playerYChange
+    # setting boundary by if function to delete and reset when near some value
+    if playerX <= 0:
+        playerX = 0
+    elif playerX>= 736:  # keep in mind the pixels of te image
+        playerX = 736
+    if playerY <=0:
+        playerY = 0
+    elif playerY>=536:
+        playerY=536
     player(playerX, playerY)
     pygame.display.update()  # updates the window
-#
+
