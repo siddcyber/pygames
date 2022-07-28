@@ -42,7 +42,7 @@ def enemy(x, y):
 # Game Loop
 while running:
     screen.fill('black')  # the screen fil is set here to update the screen black after every event
-    screen.blit(pygame.image.load("background.png"), (0, 0)) # adding bg image (slows loop)
+    screen.blit(pygame.image.load("background.png"), (0, 0))  # adding bg image (slows loop)
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             running = False
