@@ -1,8 +1,5 @@
 # start of first game using pycharm
 #  space invaders ( from YouTube )
-# bug: when reaching the bulletX axis the score increases regardless of the player position
-# bug: position of bullet fixed and updates score when in ready state
-# bug: the game over loop do not remove the images to 2000 pixel position
 import pygame
 import math
 import random
@@ -55,8 +52,8 @@ def enemy(x, y, num):
 
 # Bullet section
 bulletImg = pygame.image.load("bullet.png")
-bulletX = 0
-bulletY = yAxis * 0.8
+bulletX = playerX
+bulletY = playerY
 bulletXChange = 4
 bulletYChange = 10
 bulletState = "ready"
@@ -69,9 +66,14 @@ def showScore(x, y):
     scoreFontRender = pygame.font.SysFont('arial', 32).render("score :" + str(score), True, "white")
     screen.blit(scoreFontRender, (x, y))
 
+
 def showGameover():
+    for enemies in range(enemyNum):
+        enemyY[enemies] = yAxis * 100
     gameOverRender = pygame.font.SysFont('arial', 64).render("gameOver", True, "white")
-    screen.blit(gameOverRender, (xAxis*0.35, yAxis*0.5))
+    screen.blit(gameOverRender, (xAxis * 0.35, yAxis * 0.5))
+
+
 def bullet(x, y):
     global bulletState
     bulletState = "fire"
@@ -132,10 +134,9 @@ while running:
         playerY = 536
     #  enemy settings
     for i in range(enemyNum):
-        if enemyY[i] > yAxis * 0.8:
+        playerCollision = collision(enemyX[i], enemyY[i], playerX, playerY)
+        if enemyY[i] > yAxis * 0.8 or playerCollision:
             for j in range(enemyNum):
-                enemyY[i] = yAxis * 100
-                enemyY[j] = yAxis * 100
                 showGameover()
                 break
 
