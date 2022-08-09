@@ -2,7 +2,6 @@
 #  space invaders ( from YouTube )
 # bug: when reaching the bulletX axis the score increases regardless of the player position
 # bug: position of bullet fixed and updates score when in ready state
-# bug:if playerY axis is different the bulletY axis does not follow
 # bug: the game over loop do not remove the images to 2000 pixel position
 import pygame
 import math
@@ -133,10 +132,10 @@ while running:
         playerY = 536
     #  enemy settings
     for i in range(enemyNum):
-        if enemyY[i] > 0:
+        if enemyY[i] > yAxis * 0.8:
             for j in range(enemyNum):
-                # enemyY[i] = 2000
-                enemyY[j] = 2000
+                enemyY[i] = yAxis * 100
+                enemyY[j] = yAxis * 100
                 showGameover()
                 break
 
@@ -151,7 +150,7 @@ while running:
             # enemy collision sound
             pygame.mixer.Sound('explosion.wav').play()
 
-            bulletY = yAxis * 0.8
+            bulletY = playerY
             bulletState = "ready"
             score += 1
             print(score)
@@ -165,7 +164,7 @@ while running:
         bullet(bulletX, bulletY)
         bulletY -= bulletYChange
     if bulletY <= 0:
-        bulletY = yAxis * 0.8
+        bulletY = playerY
         bulletState = "ready"
 
     player(playerX, playerY)
